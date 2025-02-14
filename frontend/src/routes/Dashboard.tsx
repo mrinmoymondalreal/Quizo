@@ -1,18 +1,27 @@
 import Header from "@/components/Header";
 import QuizCard from "@/components/QuizCard";
 import { Button } from "@/components/ui/button";
+import { userObject } from "@/lib/types";
 import { PlusIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 
-export function loader() {
-  return null;
+export async function loader() {
+  const resp = await fetch("http://localhost:3000/user", {
+    credentials: "include",
+  });
+  if (resp.status === 200) return { user: await resp.json() };
+  return redirect("/auth/sign-in");
 }
 
 function Page() {
   const quiz_data = Array.from({ length: 10 }, (_, index) => index);
+
+  const loader_data = useLoaderData();
+  const user = (loader_data as { user: userObject }).user;
+
   return (
     <>
-      <Header />
+      <Header user={user} />
       <main className="mt-6 px-6 md:px-4 max-w-7xl mx-auto flex flex-col">
         <div className="flex justify-between">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 w-fit">

@@ -1,8 +1,13 @@
 import Quiz from "@/components/Quiz";
-import { useLocation } from "react-router-dom";
+import { LoaderFunctionArgs, redirect, useLocation } from "react-router-dom";
 
-export function loader() {
-  return null;
+export async function loader({ params }: LoaderFunctionArgs) {
+  console.log(params);
+  const userObjResp = await fetch("http://localhost:3000/user", {
+    credentials: "include",
+  });
+  if (userObjResp.status === 200) return { user: await userObjResp.json() };
+  return redirect("/auth/sign-in");
 }
 
 function Page() {

@@ -18,6 +18,7 @@ interface InputFieldProps {
   placeholder: string;
   label: string;
   type?: "text" | "password" | "email" | "textarea";
+  disabled?: boolean;
 }
 
 function InputField({
@@ -26,6 +27,7 @@ function InputField({
   placeholder,
   label,
   type: _type,
+  disabled = false,
 }: InputFieldProps) {
   const [type, setType] = useState(_type || "text");
   return (
@@ -38,9 +40,19 @@ function InputField({
           <FormControl>
             <div className="relative">
               {_type?.toString() == "textarea" ? (
-                <Textarea placeholder={placeholder} rows={10} {...field} />
+                <Textarea
+                  disabled={disabled}
+                  placeholder={placeholder}
+                  rows={10}
+                  {...field}
+                />
               ) : (
-                <Input type={type} placeholder={placeholder} {...field} />
+                <Input
+                  disabled={disabled}
+                  type={type}
+                  placeholder={placeholder}
+                  {...field}
+                />
               )}
               {_type?.toString() == "password" ? (
                 <Button
