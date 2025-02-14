@@ -1,4 +1,4 @@
-import { EditIcon, Trash2Icon } from "lucide-react";
+import { EditIcon } from "lucide-react";
 
 import { cn, formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import QuizDeleteButton from "./QuizDeleteButton";
 
 interface CardProps extends React.ComponentProps<typeof Card> {
   title: string;
@@ -51,10 +52,7 @@ export function QuizCard({
             <span>Edit</span>
           </Link>
         </Button>
-        <Button variant={"destructive"} className="w-full">
-          <Trash2Icon />
-          <span>Delete</span>
-        </Button>
+        <QuizDeleteButton id={quizId} />
       </CardFooter>
     </Card>
   );

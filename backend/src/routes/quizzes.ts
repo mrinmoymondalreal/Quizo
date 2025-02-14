@@ -36,6 +36,19 @@ router.put("/quizzes/:id", checkUser(), async (req: Request, res: Response) => {
   res.send("ok");
 });
 
+router.delete(
+  "/quizzes/:id",
+  checkUser(),
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const query = "DELETE FROM Quizzes WHERE teacher_id = $1 AND id = $2";
+    const values = [res.locals.user.id, id];
+    await pool.query(query, values);
+
+    res.send("ok");
+  }
+);
+
 router.post("/quizzes", checkUser(), async (req: Request, res: Response) => {
   const { title, description } = req.body;
   if (!title || !description || title.trim() == "" || description.trim() == "")
