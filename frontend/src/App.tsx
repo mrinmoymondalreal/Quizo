@@ -12,7 +12,11 @@ const router = createBrowserRouter([
     lazy: () => import("./routes/Dashboard"),
   },
   {
-    path: "/",
+    path: "/create-quiz",
+    lazy: () => import("./routes/EditPage"),
+  },
+  {
+    path: "/edit-quiz/:id",
     lazy: () => import("./routes/EditPage"),
   },
   {

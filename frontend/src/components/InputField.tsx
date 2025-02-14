@@ -10,13 +10,14 @@ import { Input } from "./ui/input";
 import { Control } from "react-hook-form";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { Textarea } from "./ui/textarea";
 
 interface InputFieldProps {
   control: Control<any>;
   name: string;
   placeholder: string;
   label: string;
-  type?: "string" | "password" | "email";
+  type?: "text" | "password" | "email" | "textarea";
 }
 
 function InputField({
@@ -26,7 +27,7 @@ function InputField({
   label,
   type: _type,
 }: InputFieldProps) {
-  const [type, setType] = useState(_type || "string");
+  const [type, setType] = useState(_type || "text");
   return (
     <FormField
       control={control}
@@ -36,14 +37,18 @@ function InputField({
           <FormLabel className="text-lg text-primary">{label}</FormLabel>
           <FormControl>
             <div className="relative">
-              <Input type={type} placeholder={placeholder} {...field} />
+              {_type?.toString() == "textarea" ? (
+                <Textarea placeholder={placeholder} rows={10} {...field} />
+              ) : (
+                <Input type={type} placeholder={placeholder} {...field} />
+              )}
               {_type?.toString() == "password" ? (
                 <Button
                   type="button"
                   variant="ghost"
                   className="absolute right-2 top-2.5 [&_svg]:size-5"
                   onClick={() =>
-                    setType(type == "password" ? "string" : "password")
+                    setType(type == "password" ? "text" : "password")
                   }
                 >
                   {type == "password" ? <EyeIcon /> : <EyeOffIcon />}

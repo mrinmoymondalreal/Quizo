@@ -20,3 +20,12 @@ export const SignUpSchema = z.object({
     message: "Please enter a valid name.",
   }),
 });
+
+export const QuizBasicSchema = z.object({
+  title: z.string().min(3, {
+    message: "Please enter a valid quiz name. >= 3 characters",
+  }),
+  description: z.string().min(3, {
+    message: "Please enter a valid descriptions. >= 3 characters",
+  }),
+});

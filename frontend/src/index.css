@@ -40,9 +40,9 @@
       #8683ff,
       #605dff
     );
+    --card: 240 50% 7%;
 
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
