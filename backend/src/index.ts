@@ -10,6 +10,7 @@ import { configDotenv } from "dotenv";
 if (process.env.NODE_ENV?.toString() !== "production") configDotenv();
 
 import authRouter from "./routes/auth";
+import quizzesRouter from "./routes/quizzes";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -45,7 +46,11 @@ app.use(
   }
 );
 
+// Routers for routes
+// auth router for logina and signup
 app.use(authRouter);
+// quizzes router for quizzes
+app.use(quizzesRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

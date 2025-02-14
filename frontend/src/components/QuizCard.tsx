@@ -14,14 +14,12 @@ import { Link } from "react-router-dom";
 
 interface CardProps extends React.ComponentProps<typeof Card> {
   title: string;
-  created_at: number;
+  created_at: Date;
   description: string;
-  questions: number;
   quizId: string;
 }
 
 export function QuizCard({
-  questions,
   title,
   created_at,
   description,
@@ -43,9 +41,8 @@ export function QuizCard({
           </span>
         </CardDescription>
       </CardHeader>
-      <CardContent className="-mt-4 text-wrap text-secondary space-y-2">
+      <CardContent className="-mt-4 text-wrap text-secondary">
         <div className="font-medium">{description}</div>
-        <div>{questions} question(s)</div>
       </CardContent>
       <CardFooter className="gap-4">
         <Button className="w-full" asChild>

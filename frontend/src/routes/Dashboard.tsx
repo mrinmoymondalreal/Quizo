@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import QuizCard from "@/components/QuizCard";
 import { Button } from "@/components/ui/button";
-import { userObject } from "@/lib/types";
+import { QuizObject, userObject } from "@/lib/types";
 import { PlusIcon } from "lucide-react";
 import { Link, redirect, useLoaderData } from "react-router-dom";
 
@@ -9,15 +9,19 @@ export async function loader() {
   const resp = await fetch("http://localhost:3000/user", {
     credentials: "include",
   });
-  if (resp.status === 200) return { user: await resp.json() };
+  const quizzesResp = await fetch("http://localhost:3000/quizzes", {
+    credentials: "include",
+  });
+  if (resp.status === 200)
+    return { user: await resp.json(), quizzes: await quizzesResp.json() };
   return redirect("/auth/sign-in");
 }
 
 function Page() {
-  const quiz_data = Array.from({ length: 10 }, (_, index) => index);
-
-  const loader_data = useLoaderData();
-  const user = (loader_data as { user: userObject }).user;
+  const { user, quizzes } = useLoaderData() as {
+    user: userObject;
+    quizzes: QuizObject[];
+  };
 
   return (
     <>
@@ -36,24 +40,24 @@ function Page() {
             </Button>
           </div>
         </div>
-        <div className="my-6 grid gap-4 justify-center lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-          {quiz_data.length === 0 && (
+        <div className="my-6 grid gap-4 justify-center lg:grid-cols-4 md:grid-cols-3 grid-cols-1">
+          {(!quizzes || quizzes.length === 0) && (
             <div className="h-[200px] col-span-4 flex justify-center items-center">
               <span className="text-secondary text-center text-xl md:text-3xl">
                 No Quiz Avialable. Create one by clicking the button above.
               </span>
             </div>
           )}
-          {quiz_data.map((_, index) => (
-            <QuizCard
-              title={"Simple Quiz #" + (index + 1)}
-              created_at={new Date().getTime()}
-              description="Simple example of description of the quiz"
-              questions={9}
-              quizId={(80).toString()}
-              key={index}
-            />
-          ))}
+          {Array.isArray(quizzes) &&
+            quizzes.map(({ title, description, id, created_at }, index) => (
+              <QuizCard
+                title={title}
+                created_at={new Date(Date.parse(created_at))}
+                description={description}
+                quizId={id}
+                key={index}
+              />
+            ))}
         </div>
       </main>
     </>

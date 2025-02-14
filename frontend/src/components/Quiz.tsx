@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,10 +8,14 @@ import { Form } from "@/components/ui/form";
 import InputField from "./InputField";
 import { QuizBasicSchema } from "@/lib/schemas";
 import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
 
 const FormSchema = QuizBasicSchema;
 
 function QuizForm() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -20,8 +24,28 @@ function QuizForm() {
     },
   });
 
+  async function createQuiz(data: z.infer<typeof FormSchema>) {
+    const resp = await fetch("http://localhost:3000/quizzes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    if (resp.status == 200) {
+      console.log("quiz added successfully");
+      return navigate("/dashboard");
+    }
+
+    setIsLoading(false);
+  }
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsLoading(true);
     // Handle the submit event
+    createQuiz(data);
   }
 
   return (
@@ -32,6 +56,7 @@ function QuizForm() {
           name="title"
           placeholder="Title"
           label="Enter Title of the quiz"
+          disabled={isLoading}
         />
         <InputField
           control={form.control}
@@ -39,8 +64,9 @@ function QuizForm() {
           placeholder="Description"
           label="Enter Description of the quiz"
           type="textarea"
+          disabled={isLoading}
         />
-        <Button type="submit" size="lg">
+        <Button isLoading={isLoading} type="submit" size="lg">
           Submit
         </Button>
       </form>
