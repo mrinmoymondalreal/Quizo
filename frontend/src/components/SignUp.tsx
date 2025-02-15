@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -7,36 +7,65 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import InputField from "./InputField";
 import { SignUpSchema } from "@/lib/schemas";
+import { useState } from "react";
 
 const FormSchema = SignUpSchema;
 
-function SignInForm() {
+function SignUpForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     // Handle the submit event
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const resp = await fetch("http://localhost:3000/signup", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
+      });
+      if (resp.status == 200) {
+        console.log(await resp.text());
+        navigate("/dashboard");
+      } else {
+        setError(await resp.text());
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setError("Unexpected error occurred. Try again later.");
+      setIsLoading(false);
+    }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+        {error && (
+          <div className="w-full text-red-500" role="alert">
+            Error: {error}
+          </div>
+        )}
         <InputField
           control={form.control}
-          name="name"
-          placeholder="Full Name"
-          label="Full Name"
-        />
-        <InputField
-          control={form.control}
-          name="email"
-          placeholder="Email"
-          label="Email Address"
+          name="username"
+          placeholder="Username"
+          label="Username"
+          disabled={isLoading}
         />
         <InputField
           control={form.control}
@@ -44,8 +73,9 @@ function SignInForm() {
           placeholder="Password"
           label="Password"
           type="password"
+          disabled={isLoading}
         />
-        <Button type="submit" size="lg">
+        <Button isLoading={isLoading} type="submit" size="lg">
           Submit
         </Button>
       </form>
@@ -73,7 +103,7 @@ function SignUp() {
         </p>
       </div>
       <div className="w-full md:flex-[1] flex justify-center">
-        <SignInForm />
+        <SignUpForm />
       </div>
     </div>
   );
