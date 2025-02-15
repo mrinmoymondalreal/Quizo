@@ -4,7 +4,6 @@ import { rootLoader } from "./lib/utils";
 import ProtectedRoot from "./routes/ProtectedRoot";
 import PageTitle from "./components/PageTitle";
 import { Toaster } from "sonner";
-// import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
