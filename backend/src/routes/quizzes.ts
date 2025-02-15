@@ -5,7 +5,6 @@ import { checkUser } from "../libs/middlewares";
 const router = Router();
 
 router.get("/quizzes", checkUser(), async (req: Request, res: Response) => {
-  console.log(res.locals.user);
   const query = "SELECT * FROM Quizzes WHERE teacher_id = $1";
   const values = [res.locals.user.id];
   const result = await pool.query(query, values);

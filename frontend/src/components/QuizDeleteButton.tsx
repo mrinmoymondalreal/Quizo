@@ -18,10 +18,13 @@ function QuizDeleteButton({ id }: { id: string }) {
   const navigate = useNavigate();
 
   async function handleDelete() {
-    const resp = await fetch(`http://localhost:3000/quizzes/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const resp = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/quizzes/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
     if (resp.status == 200) {
       toast.success("Quiz deleted successfully");
       return navigate("/dashboard");

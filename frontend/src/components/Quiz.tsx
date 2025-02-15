@@ -33,7 +33,7 @@ function QuizForm({
   });
 
   async function createQuiz(data: z.infer<typeof FormSchema>) {
-    const resp = await fetch("http://localhost:3000/quizzes", {
+    const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/quizzes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,14 +53,17 @@ function QuizForm({
   }
 
   async function editQuiz(d: z.infer<typeof FormSchema>) {
-    const resp = await fetch("http://localhost:3000/quizzes/" + data?.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(d),
-      credentials: "include",
-    });
+    const resp = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/quizzes/` + data?.id,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(d),
+        credentials: "include",
+      }
+    );
 
     if (resp.status == 200) {
       console.log("quiz edited successfully");

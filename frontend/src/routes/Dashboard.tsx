@@ -6,7 +6,7 @@ import { PlusIcon } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
 
 export async function loader() {
-  const resp = await fetch("http://localhost:3000/quizzes", {
+  const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/quizzes`, {
     credentials: "include",
   });
   if (resp.status === 200) return { quizzes: await resp.json() };

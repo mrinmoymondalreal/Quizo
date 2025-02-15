@@ -25,7 +25,7 @@ export function formatDate(date: Date) {
 }
 
 export async function rootLoader() {
-  const resp = await fetch("http://localhost:3000/user", {
+  const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
     credentials: "include",
   });
   if (resp.status === 200) return { user: await resp.json() };

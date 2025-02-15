@@ -31,7 +31,7 @@ function SignInForm() {
     setError(null);
 
     try {
-      const resp = await fetch("http://localhost:3000/login", {
+      const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",

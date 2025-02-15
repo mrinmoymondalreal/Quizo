@@ -11,9 +11,12 @@ import {
 export async function loader({ params }: LoaderFunctionArgs) {
   if (params.id) {
     try {
-      const resp = await fetch(`http://localhost:3000/quizzes/${params.id}`, {
-        credentials: "include",
-      });
+      const resp = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/quizzes/${params.id}`,
+        {
+          credentials: "include",
+        }
+      );
       const status = resp.status;
       const json = await resp.json();
       if (status !== 200 || Array.isArray(json)) return redirect("/dashboard");

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { userObject } from "@/lib/types";
 import { getTitle } from "./PageTitle";
@@ -47,9 +47,11 @@ function Header({ user }: { user: userObject }) {
     <div className="flex flex-row gap-8 gap-x-12 md:py-8 py-4 px-6 md:px-4 justify-between items-center max-w-7xl mx-auto">
       <div className="flex items-center gap-3">
         <BackButton />
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Quzio
-        </h1>
+        <Link to="/dashboard">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Quzio
+          </h1>
+        </Link>
         <span>|</span>
         <h2 className="text-lg md:text-xl font-semibold tracking-tight">
           <HeaderTitle />
@@ -65,7 +67,7 @@ function Header({ user }: { user: userObject }) {
                 className="bg-white text-black-700"
                 onClick={async (e) => {
                   e.preventDefault();
-                  await fetch("http://localhost:3000/logout", {
+                  await fetch(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
                     credentials: "include",
                   });
                   toast.success("Logged out successfully");

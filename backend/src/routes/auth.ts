@@ -28,7 +28,6 @@ router.post("/login", async (req: Request, res: Response) => {
   res.cookie("user_id", result.rows[0].id, {
     httpOnly: true,
     path: "/",
-    domain: "localhost",
     secure: false,
   });
 

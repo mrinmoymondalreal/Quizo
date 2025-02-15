@@ -32,7 +32,7 @@ function SignUpForm() {
     setError(null);
 
     try {
-      const resp = await fetch("http://localhost:3000/signup", {
+      const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/signup`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
