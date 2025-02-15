@@ -271,19 +271,3 @@ http://localhost:3000
 - **404 Not Found**: If the quiz does not exist.
 
 ---
-
-## Contributing
-
-Feel free to submit issues or pull requests to improve the project.
-
-## License
-
-This project is licensed under the MIT License.
-
-## Contributing
-
-Feel free to submit issues or pull requests to improve the project.
-
-## License
-
-This project is licensed under the MIT License.
