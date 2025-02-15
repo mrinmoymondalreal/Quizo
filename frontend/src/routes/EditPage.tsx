@@ -1,3 +1,4 @@
+import { setTitle } from "@/components/PageTitle";
 import Quiz from "@/components/Quiz";
 import { QuizObject } from "@/lib/types";
 import {
@@ -8,26 +9,29 @@ import {
 } from "react-router-dom";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const userObjResp = await fetch("http://localhost:3000/user", {
-    credentials: "include",
-  });
-  if (userObjResp.status === 200 && params.id) {
-    const quizObjResp = await fetch(
-      `http://localhost:3000/quizzes/${params.id}`,
-      {
+  if (params.id) {
+    try {
+      const resp = await fetch(`http://localhost:3000/quizzes/${params.id}`, {
         credentials: "include",
-      }
-    );
-    return { user: await userObjResp.json(), quiz: await quizObjResp.json() };
+      });
+      const status = resp.status;
+      const json = await resp.json();
+      if (status !== 200 || Array.isArray(json)) return redirect("/dashboard");
+      return { quiz: json };
+    } catch (err) {
+      console.log(err);
+      return redirect("/dashboard");
+    }
   }
-  if (userObjResp.status === 200) return {};
-  return redirect("/auth/sign-in");
+
+  return {};
 }
 
 function Page() {
   const location = useLocation();
   const isNewPage = location.pathname === "/create-quiz";
   const { quiz } = useLoaderData() as { quiz: QuizObject };
+  setTitle(isNewPage ? "Create Quiz" : "Edit Quiz");
   return isNewPage ? <Quiz /> : <Quiz isEdit data={quiz} />;
 }
 

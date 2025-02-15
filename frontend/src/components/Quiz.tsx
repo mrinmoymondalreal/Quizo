@@ -108,7 +108,7 @@ function Quiz({
   data?: QuizObject;
 }) {
   return (
-    <div className="flex px-7 md:px-4 my-6 md:my-0 min-h-screen justify-center md:items-center max-w-5xl mx-auto">
+    <div className="flex px-7 md:px-4 my-6 md:my-0 h-[70vh] justify-center md:items-center max-w-5xl mx-auto">
       <div className="flex flex-col md:flex-row gap-8 gap-x-12 w-full h-fit">
         <div className="md:flex-1 text-left h-full">
           <p className="text-secondary leading-7 [&:not(:first-child)]:mt-6">
