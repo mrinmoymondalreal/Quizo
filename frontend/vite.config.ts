@@ -10,8 +10,4 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  define: {
-    // this is necessary to avoid compile errors
-    VITE_BACKEND_URL: process.env.VITE_BACKEND_URL,
-  },
 }));
