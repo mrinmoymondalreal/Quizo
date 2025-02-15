@@ -40,6 +40,11 @@
       #8683ff,
       #605dff
     );
+    --primary-background: radial-gradient(
+      circle farthest-side at 50% 0,
+      #8583ff5d,
+      hsl(var(--background))
+    );
     --card: 240 50% 7%;
 
     --foreground: 0 0% 98%;

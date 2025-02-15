@@ -11,6 +11,7 @@ export default {
       },
       backgroundImage: {
         "primary-btn": "var(--primary-btn)",
+        "primary-background": "var(--primary-background)",
       },
       colors: {
         background: "hsl(var(--background))",
