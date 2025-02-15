@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 import InputField from "./InputField";
 import { SignInSchema } from "@/lib/schemas";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const FormSchema = SignInSchema;
 
@@ -39,15 +40,21 @@ function SignInForm() {
         credentials: "include",
       });
       if (resp.status == 200) {
+        toast.success("Logged in successfully");
         console.log(await resp.text());
-        navigate("/dashboard");
+        return navigate("/dashboard");
       } else {
-        setError(await resp.text());
+        const error = await resp.text();
+        setError(error);
         setIsLoading(false);
+        toast.error(error);
+        return;
       }
     } catch (err) {
       setError("Unexpected error occurred. Try again later.");
       setIsLoading(false);
+
+      toast.error("Unexpected error occurred. Try again later.");
     }
   }
 

@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { toast } from "sonner";
 
 function HeaderTitle() {
   const { headerTitle } = getTitle();
@@ -67,6 +68,7 @@ function Header({ user }: { user: userObject }) {
                   await fetch("http://localhost:3000/logout", {
                     credentials: "include",
                   });
+                  toast.success("Logged out successfully");
                   navigate("/auth/sign-in");
                 }}
               >

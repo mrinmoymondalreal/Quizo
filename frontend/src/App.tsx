@@ -3,6 +3,8 @@ import "./App.css";
 import { rootLoader } from "./lib/utils";
 import ProtectedRoot from "./routes/ProtectedRoot";
 import PageTitle from "./components/PageTitle";
+import { Toaster } from "sonner";
+// import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,7 @@ function App() {
   PageTitle();
   return (
     <>
+      <Toaster duration={1500} position="top-center" />
       <RouterProvider router={router} />
     </>
   );

@@ -10,6 +10,7 @@ import { QuizBasicSchema } from "@/lib/schemas";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { QuizObject } from "@/lib/types";
+import { toast } from "sonner";
 
 const FormSchema = QuizBasicSchema;
 
@@ -43,9 +44,11 @@ function QuizForm({
 
     if (resp.status == 200) {
       console.log("quiz added successfully");
+      toast.success("Quiz created successfully!");
       return navigate("/dashboard");
     }
 
+    toast.error("Failed to create quiz. Try again later.");
     setIsLoading(false);
   }
 
@@ -61,9 +64,11 @@ function QuizForm({
 
     if (resp.status == 200) {
       console.log("quiz edited successfully");
+      toast.success("Quiz edited successfully!");
       return navigate("/dashboard");
     }
 
+    toast.error("Failed to edit quiz. Try again later.");
     setIsLoading(false);
   }
 

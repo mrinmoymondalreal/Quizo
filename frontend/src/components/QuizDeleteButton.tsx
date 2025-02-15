@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function QuizDeleteButton({ id }: { id: string }) {
   const navigate = useNavigate();
@@ -22,8 +23,11 @@ function QuizDeleteButton({ id }: { id: string }) {
       credentials: "include",
     });
     if (resp.status == 200) {
-      navigate("/dashboard");
+      toast.success("Quiz deleted successfully");
+      return navigate("/dashboard");
     }
+
+    toast.error("Failed to delete quiz. Try again later.");
   }
 
   return (
