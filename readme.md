@@ -68,7 +68,7 @@ MODE=prod #if in production
    ```sh
    npm install
    ```
-3. Set up the database (if required):
+3. Set up the database (if required) (this will create all table and also add some dummy data):
    ```sh
    npm run db:setup
    ```
@@ -118,6 +118,167 @@ MODE=prod #if in production
 - `npm run preview` - Previews the production build
 
 ---
+
+# Quizo App API Documentation
+
+This document provides an overview of the API endpoints available in the Quizo App backend. The API allows teachers to create, update, view, and delete quizzes. Authentication is managed using cookies.
+
+## Base URL
+
+```
+http://localhost:3000
+```
+
+## Authentication Routes
+
+### 1. Get Current User
+
+**Endpoint:** `GET /user`
+**Description:** Returns the currently authenticated user.
+**Response:**
+
+- **200 OK**: `{ id: number, username: string }`
+- **401 Unauthorized**: If the user is not logged in.
+
+---
+
+### 2. User Login
+
+**Endpoint:** `POST /login`
+**Description:** Authenticates a user.
+**Request Body:**
+
+```json
+{
+  "username": "exampleUser",
+  "password": "password123"
+}
+```
+
+**Responses:**
+
+- **200 OK**: "ok"
+- **400 Bad Request**: "INVALID" (if username or password is missing)
+- **404 Not Found**: "Invalid Credentials"
+
+---
+
+### 3. User Signup
+
+**Endpoint:** `POST /signup`
+**Description:** Registers a new user.
+**Request Body:**
+
+```json
+{
+  "username": "newUser",
+  "password": "securePassword"
+}
+```
+
+**Responses:**
+
+- **200 OK**: "ok"
+- **400 Bad Request**: "INVALID" (if username or password is missing)
+- **400 Bad Request**: "Username Already Taken. Choose another username."
+
+---
+
+### 4. User Logout
+
+**Endpoint:** `GET /logout`
+**Description:** Logs out the user by clearing the authentication cookie.
+**Response:**
+
+- **200 OK**: "ok"
+
+## Quiz Routes
+
+### 5. Get All Quizzes
+
+**Endpoint:** `GET /quizzes`
+**Description:** Fetches all quizzes created by the logged-in teacher.
+**Responses:**
+
+- **200 OK**: `[ { id: number, title: string, description: string, teacher_id: number }, ... ]`
+- **401 Unauthorized**: If the user is not logged in.
+
+---
+
+### 6. Get Single Quiz
+
+**Endpoint:** `GET /quizzes/:id`
+**Description:** Fetches a single quiz by ID.
+**Responses:**
+
+- **200 OK**: `{ id: number, title: string, description: string, teacher_id: number }`
+- **401 Unauthorized**: If the user is not logged in.
+- **404 Not Found**: If the quiz does not exist.
+
+---
+
+### 7. Create a Quiz
+
+**Endpoint:** `POST /quizzes`
+**Description:** Creates a new quiz.
+**Request Body:**
+
+```json
+{
+  "title": "Quiz Title",
+  "description": "Quiz Description"
+}
+```
+
+**Responses:**
+
+- **200 OK**: "ok"
+- **400 Bad Request**: "INVALID" (if title or description is missing)
+- **500 Internal Server Error**: "INTERNAL SERVER ERROR. Try Again Later"
+
+---
+
+### 8. Update a Quiz
+
+**Endpoint:** `PUT /quizzes/:id`
+**Description:** Updates an existing quiz.
+**Request Body:**
+
+```json
+{
+  "title": "Updated Title",
+  "description": "Updated Description"
+}
+```
+
+**Responses:**
+
+- **200 OK**: "ok"
+- **400 Bad Request**: "INVALID" (if title or description is missing)
+- **401 Unauthorized**: If the user is not logged in.
+- **404 Not Found**: If the quiz does not exist.
+
+---
+
+### 9. Delete a Quiz
+
+**Endpoint:** `DELETE /quizzes/:id`
+**Description:** Deletes an existing quiz.
+**Responses:**
+
+- **200 OK**: "ok"
+- **401 Unauthorized**: If the user is not logged in.
+- **404 Not Found**: If the quiz does not exist.
+
+---
+
+## Contributing
+
+Feel free to submit issues or pull requests to improve the project.
+
+## License
+
+This project is licensed under the MIT License.
 
 ## Contributing
 
