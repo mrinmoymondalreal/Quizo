@@ -88,7 +88,7 @@ function SignIn() {
       <div className="md:flex-1 text-left ">
         <div>
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-            Sign In
+            Log In
           </h1>
         </div>
         <p className="text-secondary leading-7 [&:not(:first-child)]:mt-6">
