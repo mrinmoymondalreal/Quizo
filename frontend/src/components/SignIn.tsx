@@ -102,6 +102,11 @@ function SignIn() {
           Enter your username and password to sign in to your account. and
           Continue to Dashboard
         </p>
+        <p className="text-secondary leading-7 [&:not(:first-child)]:mt-2">
+          <p className="font-bold text-lg">Demo Account: </p>
+          <p>Username: admin</p>
+          <p>Password: admin</p>
+        </p>
         <p className="text-secondary leading-7 [&:not(:first-child)]:mt-6">
           New to us?{" "}
           <Link to="/auth/sign-up" className="text-primary underline">
