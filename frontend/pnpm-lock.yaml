@@ -56,6 +56,9 @@ importers:
       react-router-dom:
         specifier: '6'
         version: 6.29.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-topbar-progress-indicator:
+        specifier: ^4.1.1
+        version: 4.1.1(react@19.0.0)
       sonner:
         specifier: ^1.7.4
         version: 1.7.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1554,6 +1557,11 @@ packages:
       '@types/react':
         optional: true
 
+  react-topbar-progress-indicator@4.1.1:
+    resolution: {integrity: sha512-Oy3ENNKfymt16zoz5SYy/WOepMurB0oeZEyvuHm8JZ3jrTCe1oAUD7fG6HhYt5sg8Wcg5gdkzSWItaFF6c6VhA==}
+    peerDependencies:
+      react: '>=16.8.0'
+
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
     engines: {node: '>=0.10.0'}
@@ -1672,6 +1680,9 @@ packages:
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
+
+  topbar@0.1.4:
+    resolution: {integrity: sha512-P3n4WnN4GFd2mQXDo30rQmsAGe4V1bVkggtTreSbNyL50Fyc+eVkW5oatSLeGQmJoan2TLIgoXUZypN+6nw4MQ==}
 
   ts-api-utils@2.0.1:
     resolution: {integrity: sha512-dnlgjFSVetynI8nzgJ+qF62efpglpWRk8isUEWZGWlJYySCTD6aKvbUDu+zbPeDakk3bg5H4XpitHukgfL1m9w==}
@@ -3074,6 +3085,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.8
 
+  react-topbar-progress-indicator@4.1.1(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      topbar: 0.1.4
+
   react@19.0.0: {}
 
   read-cache@1.0.0:
@@ -3224,6 +3240,8 @@ snapshots:
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
+
+  topbar@0.1.4: {}
 
   ts-api-utils@2.0.1(typescript@5.7.3):
     dependencies:
