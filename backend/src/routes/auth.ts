@@ -29,8 +29,8 @@ router.post("/login", async (req: Request, res: Response) => {
     httpOnly: true,
     path: "/",
     // Should be added in roduction
-    secure: false,
-    sameSite: "lax",
+    secure: process.env.MODE == "prod",
+    sameSite: process.env.MODE == "prod" ? "none" : "lax",
   });
 
   res.send("ok") as unknown as void;
