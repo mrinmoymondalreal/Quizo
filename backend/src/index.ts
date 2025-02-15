@@ -53,6 +53,10 @@ app.use(authRouter);
 // quizzes router for quizzes
 app.use(quizzesRouter);
 
-app.listen(PORT, () => {
+app.get("/", (req, res) => {
+  res.send("ok! It Works v1.3");
+});
+
+app.listen(parseInt(PORT.toString()), "0.0.0.0", () => {
   console.log(`Listening on port ${PORT}`);
 });

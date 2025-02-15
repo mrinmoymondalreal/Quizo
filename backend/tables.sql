@@ -13,11 +13,3 @@ CREATE TABLE Quizzes (
     FOREIGN KEY (teacher_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE QuizQuestions (
-    id SERIAL PRIMARY KEY,
-    quiz_id INT NOT NULL,
-    question_title TEXT NOT NULL,
-    options JSONB NOT NULL,
-    correct_options JSONB NOT NULL,
-    FOREIGN KEY (quiz_id) REFERENCES Quizzes(id) ON DELETE CASCADE
-);

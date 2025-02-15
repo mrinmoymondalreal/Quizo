@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: backend_server
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@postgres:5432/mydatabase
+      FRONTEND_URL: "http://frontend:4173"
+
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+    command: ["sh", "-c", "npm run db:setup && npm start"]
+
+  frontend:
+    build:
+      context: frontend
+      args:
+        - VITE_BACKEND_URL="http://localhost:3000"
+
+    environment:
+      VITE_BACKEND_URL: http://localhost:3000
+    container_name: frontend_client
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "4173:4173"
+    volumes:
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+volumes:
+  pgdata:

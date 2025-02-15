@@ -28,7 +28,9 @@ router.post("/login", async (req: Request, res: Response) => {
   res.cookie("user_id", result.rows[0].id, {
     httpOnly: true,
     path: "/",
+    // Should be added in roduction
     secure: false,
+    sameSite: "lax",
   });
 
   res.send("ok") as unknown as void;
