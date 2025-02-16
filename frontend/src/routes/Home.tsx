@@ -23,6 +23,9 @@ function Header() {
         <Button className="bg-red-500 text-white" asChild>
           <Link to="/auth/sign-in">Get Started</Link>
         </Button>
+        <Button asChild>
+          <Link to="/dashboard">Dashboard</Link>
+        </Button>
       </div>
     </div>
   );
